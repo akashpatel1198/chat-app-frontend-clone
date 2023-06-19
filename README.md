@@ -136,3 +136,4 @@ To learn more, take a look at the following resources:
 - [ESLint](https://eslint.org/) - learn about analyzing code with ESLint
 - [Prettier](https://eslint.org/) - learn about formatting code with Prettier
 - [Prettier Extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - a Prettier extension for Visual Studio Code
+# chat-app-frontend
