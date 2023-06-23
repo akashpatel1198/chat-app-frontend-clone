@@ -5,6 +5,7 @@ const MessagesList = () => {
   const { messages, isLoadingAnswer } = useMessages()
 
   return (
+    // <div className="mx-auto max-w-3xl pt-8">
     <div className="mx-auto max-w-3xl pt-8">
       {messages?.map((message, i) => {
         const isUser = message.role === 'user'
@@ -12,9 +13,9 @@ const MessagesList = () => {
         return (
           <div
             id={`message-${i}`}
-            className={`fade-up mb-4 flex ${
-              isUser ? 'justify-end' : 'justify-start'
-            } ${i === 1 ? 'max-w-md' : ''}`}
+            className={`fade-up mb-4 flex ${isUser ? 'justify-end' : 'justify-start'} ${
+              i === 1 ? 'max-w-md' : ''
+            }`}
             key={message.content}
           >
             {!isUser && (
@@ -32,7 +33,7 @@ const MessagesList = () => {
                   : 'ml-2 bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-200'
               }`}
             >
-              {message.content.trim()}
+              {message?.content?.trim()}
             </div>
             {isUser && (
               <img
