@@ -6,8 +6,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   SettingOutlined,
-  UnorderedListOutlined,
-  UserOutlined
+  UnorderedListOutlined
 } from '@ant-design/icons'
 
 const { Sider } = Layout
@@ -30,11 +29,9 @@ const SideBar = () => {
         {collapsed ? <MenuUnfoldOutlined rev={undefined} /> : <MenuFoldOutlined />}
       </span>
       <div className="my-[40px] flex flex-col items-center justify-center h-[141px]">
-        <Avatar
-          size={collapsed ? 50 : 105}
-          icon={<UserOutlined />}
-          style={{ backgroundColor: '#1c6daf' }}
-        />
+        <Avatar size={collapsed ? 50 : 105} style={{ backgroundColor: '#1c6daf' }}>
+          <p className="text-[40px]">J</p>
+        </Avatar>
         {!collapsed && <h5 className="text-[24px] text=[#1c6daf]">John</h5>}
       </div>
       <Divider />
