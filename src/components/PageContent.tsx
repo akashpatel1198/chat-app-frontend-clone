@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import PersonalityBanner from './PersonalityBanner'
+import { TailSpin } from 'react-loader-spinner'
 import { Configuration, OpenAIApi } from 'openai'
 
 const configuration = new Configuration({
@@ -9,13 +10,31 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration)
 
+const TailSpinComponent = () => {
+  return (
+    <div className="m-5 w-[100%] flex justify-center">
+      <TailSpin
+        className="m-5"
+        height="80"
+        width="80"
+        color="#033156"
+        ariaLabel="tail-spin-loading"
+        radius="1"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
+      ></TailSpin>
+    </div>
+  )
+}
+
 const PageContent = () => {
   const [email, setEmail] = useState('')
-
   const [response, setResponse] = useState('')
 
   const submitEmail = async () => {
     if (email.length === 0) return
+    setIsLoading(true)
     console.log('email value: ' + email)
     const prompt = `Give feedback on text input which is an email 
     using the following rubric with line breaks:\n\nRubric: 
@@ -35,8 +54,11 @@ const PageContent = () => {
       })
       console.log('open ai response')
       const gptRes = chat_completion?.data?.choices[0]?.message?.content
+      setIsLoading(false)
       setResponse(gptRes)
     } catch (err) {
+      setIsLoading(false)
+      setResponse('Error in Email Check Request')
       console.log('error in chatGPT request')
       console.log(err)
     }
@@ -48,6 +70,16 @@ const PageContent = () => {
     // In case you have a limitation
     // e.target.style.height = `${Math.min(e.target.scrollHeight, limit)}px`;
   }
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  const responseArr = response.split('\n').map((el, i) => {
+    return (
+      <p key={i} className="py-[1px] bg-white">
+        {el}
+      </p>
+    )
+  })
 
   return (
     <div className={'w-[100%]'}>
@@ -72,13 +104,7 @@ const PageContent = () => {
           </div>
           <div className="">
             <h3 className="text-lg">Feedback on your email:</h3>
-            {response.split('\n').map((el, i) => {
-              return (
-                <p key={i} className="py-[1px] bg-white">
-                  {el}
-                </p>
-              )
-            })}
+            {isLoading ? TailSpinComponent() : responseArr}
           </div>
         </div>
       </div>
